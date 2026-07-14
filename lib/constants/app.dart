@@ -31,14 +31,14 @@ const String appTitle = 'ResumeWriter - File Browser for Solid Pods';
 /// underscores. Every other identifier keeps the full project name.
 
 const String appClientId =
-    'https://solidcommunity.au/apps/resume_writer/client-profile.jsonld';
+    'https://ayu-gu.github.io/resume_writer/solid/client-profile.jsonld';
 
 /// One redirect URI per platform; SolidUI selects the right one at runtime
 /// based on the current platform. Keep this list in step with the
 /// `redirect_uris` in the hosted client profile document.
 
 const List<String> appRedirectUris = [
-  'https://solidcommunity.au/apps/resume_writer/redirect.html',
+  'https://ayu-gu.github.io/resume_writer/solid/redirect.html',
   'com.example.resumewriter://redirect',
   'http://localhost:4400/redirect',
 ];
@@ -55,7 +55,7 @@ const String appPodDirectory = 'resume_writer';
 /// Homepage opened from the login page's info button. Point this at your own
 /// project page or documentation.
 
-const String appLink = 'https://github.com/example/resume_writer';
+const String appLink = 'https://github.com/Ayu-gu/resume_writer';
 
 /// Shared upload configuration for every `SolidFile` view in ResumeWriter.
 ///
@@ -71,7 +71,7 @@ const SolidFileUploadConfig appUploadConfig = SolidFileUploadConfig(
 /// Public URL where ResumeWriter is hosted. Used by the Invite Others
 /// feature to send a working link to the recipient.
 
-const String appUrl = 'https://resume_writer.solidcommunity.au/';
+const String appUrl = 'https://ayu-gu.github.io/resume_writer/';
 
 /// Application-wide Invite Others configuration shared by the
 /// AppBar share button and the App Info dialog so that users can
