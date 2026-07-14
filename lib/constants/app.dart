@@ -38,7 +38,7 @@ const String appClientId =
 /// `redirect_uris` in the hosted client profile document.
 
 const List<String> appRedirectUris = [
-  'https://ayu-gu.github.io/resume_writer/solid/redirect.html',
+  'http://localhost:4400/redirect.html',
   'com.example.resumewriter://redirect',
   'http://localhost:4400/redirect',
 ];
