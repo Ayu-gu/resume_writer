@@ -6,12 +6,13 @@
 library;
 
 import 'package:flutter/material.dart';
-
+import 'package:resume_writer/screens/browse_files.dart';
 import 'package:solidui/solidui.dart';
 
 import 'package:resume_writer/constants/app.dart';
 import 'package:resume_writer/home.dart';
-import 'package:resume_writer/screens/browse_files.dart';
+import 'package:resume_writer/screens/job_input_screen.dart';
+import 'package:resume_writer/screens/profile_data_screen.dart';
 
 final _scaffoldController = SolidScaffoldController();
 
@@ -33,39 +34,43 @@ class AppScaffold extends StatelessWidget {
 
       menu: const [
         SolidMenuItem(
-          icon: Icons.home,
+          icon: Icons.home_outlined,
           title: 'Home',
           tooltip: '''
+      **Home**
 
-            **Home**
-
-            Tap here to return to the main page for the app.
-
-            ''',
+      Return to the ResumeWriter dashboard.
+    ''',
           child: Home(title: appTitle),
         ),
         SolidMenuItem(
-          icon: Icons.folder,
-          title: 'App Files',
+          icon: Icons.description_outlined,
+          title: 'New Resume',
           tooltip: '''
+      **New Resume**
 
-            **Files**
-
-            Tap here to browse the files on your POD for this app.
-
-            ''',
-          child: SolidFile(uploadConfig: appUploadConfig),
+      Analyse a job description and create a tailored resume.
+    ''',
+          child: JobInputScreen(),
         ),
         SolidMenuItem(
-          icon: Icons.storage,
-          title: 'All POD Files',
+          icon: Icons.person_outline,
+          title: 'Profile Data',
           tooltip: '''
+      **Profile Data**
 
-            **All Files**
+      View the professional information available from your Solid Pod.
+    ''',
+          child: ProfileDataScreen(),
+        ),
+        SolidMenuItem(
+          icon: Icons.folder_outlined,
+          title: 'Pod Files',
+          tooltip: '''
+      **Pod Files**
 
-            Tap here to browse all folders on your POD from the root.
-
-            ''',
+      Browse all files and folders stored in your Solid Pod.
+    ''',
           child: BrowseFiles(),
         ),
       ],
@@ -77,15 +82,7 @@ class AppScaffold extends StatelessWidget {
           showUpdateButton: true,
           downloadUrl: 'https://solidcommunity.au/installers/',
         ),
-        actions: [
-          SolidAppBarAction(
-            icon: Icons.folder,
-            onPressed: () => _scaffoldController.navigateToSubpage(
-              const SolidFile(uploadConfig: appUploadConfig),
-            ),
-            tooltip: 'Files',
-          ),
-        ],
+        actions: const [],
       ),
 
       // The status bar runs along the bottom of the window, surfacing the

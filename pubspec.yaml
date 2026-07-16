@@ -18,6 +18,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^1.6.0
+  solidpod: ^1.0.13
   solidui: ^1.0.14
   window_manager: ^0.5.1
 

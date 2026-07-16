@@ -30,10 +30,52 @@ class App extends StatelessWidget {
       title: appTitle,
 
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF007AFF),
-        ),
         useMaterial3: true,
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: const Color(0xFF050806),
+        colorScheme: const ColorScheme.dark(
+          primary: Color(0xFF22C55E),
+          secondary: Color(0xFF16A34A),
+          surface: Color(0xFF0D1510),
+          surfaceContainerHighest: Color(0xFF152019),
+          onPrimary: Colors.black,
+          onSurface: Color(0xFFF4F7F4),
+          onSurfaceVariant: Color(0xFF9FB0A3),
+          outline: Color(0xFF243328),
+          outlineVariant: Color(0xFF1C2A20),
+        ),
+        filledButtonTheme: FilledButtonThemeData(
+          style: FilledButton.styleFrom(
+            backgroundColor: const Color(0xFF22C55E),
+            foregroundColor: Colors.black,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: const Color(0xFF111A13),
+          hintStyle: const TextStyle(
+            color: Color(0xFF738078),
+          ),
+          labelStyle: const TextStyle(
+            color: Color(0xFFA9B8AC),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: const BorderSide(
+              color: Color(0xFF263329),
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: const BorderSide(
+              color: Color(0xFF22C55E),
+              width: 2,
+            ),
+          ),
+        ),
       ),
 
       home: SolidLogin(
