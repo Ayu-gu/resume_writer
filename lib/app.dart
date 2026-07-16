@@ -55,7 +55,7 @@ class App extends StatelessWidget {
         ),
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
-          fillColor: const Color(0xFF111A13),
+          fillColor: const Color.fromRGBO(216, 227, 219, 1),
           hintStyle: const TextStyle(
             color: Color(0xFF738078),
           ),
@@ -79,7 +79,7 @@ class App extends StatelessWidget {
       ),
 
       home: SolidLogin(
-        title: appTitle.replaceAll(' - ', '\n'),
+        title: 'ResumeWriter\nYour Career Data. Your Control.',
         image: const AssetImage('assets/images/app_image.jpg'),
         logo: const AssetImage('assets/images/app_icon.png'),
 

@@ -22,6 +22,8 @@ dependencies:
   solidpod: ^1.0.13
   solidui: ^1.0.14
   window_manager: ^0.5.1
+  pdf: ^3.11.3
+  printing: ^5.14.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.4

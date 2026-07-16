@@ -1,7 +1,10 @@
 import 'dart:convert';
-import 'job_analysis_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+import '../services/pod_profile_service.dart';
+import 'job_analysis_screen.dart';
 
 class JobInputScreen extends StatefulWidget {
   const JobInputScreen({super.key});
@@ -13,6 +16,8 @@ class JobInputScreen extends StatefulWidget {
 class _JobInputScreenState extends State<JobInputScreen> {
   final TextEditingController _jobDescriptionController =
       TextEditingController();
+
+  final PodProfileService _profileService = PodProfileService();
 
   bool _isAnalysing = false;
 
@@ -46,6 +51,29 @@ class _JobInputScreenState extends State<JobInputScreen> {
     });
 
     try {
+      // STEP 1: Read the user's career profile directly from their Solid Pod.
+      final careerProfile = await _profileService.readCareerProfile();
+
+      if (careerProfile == null) {
+        if (!mounted) return;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'No career profile found in your Solid Pod. '
+              'Please add your profile data first.',
+            ),
+          ),
+        );
+
+        return;
+      }
+
+      debugPrint('===== PROFILE LOADED FROM SOLID POD =====');
+      debugPrint(jsonEncode(careerProfile));
+      debugPrint('==========================================');
+
+      // STEP 2: Send both the job description and Pod data to the backend.
       final response = await http.post(
         Uri.parse('http://localhost:3000/analyse-job'),
         headers: {
@@ -53,6 +81,7 @@ class _JobInputScreenState extends State<JobInputScreen> {
         },
         body: jsonEncode({
           'jobDescription': jobDescription,
+          'careerProfile': careerProfile,
         }),
       );
 
@@ -65,7 +94,7 @@ class _JobInputScreenState extends State<JobInputScreen> {
 
       if (response.statusCode == 200 && data['success'] == true) {
         final Map<String, dynamic> analysis =
-            data['analysis'] as Map<String, dynamic>;
+            Map<String, dynamic>.from(data['analysis']);
 
         debugPrint('===== JOB ANALYSIS =====');
         debugPrint('Job title: ${analysis['jobTitle']}');
@@ -77,7 +106,8 @@ class _JobInputScreenState extends State<JobInputScreen> {
         debugPrint('Responsibilities: ${analysis['responsibilities']}');
         debugPrint('Qualifications: ${analysis['qualifications']}');
         debugPrint(
-          'Experience requirements: ${analysis['experienceRequirements']}',
+          'Experience requirements: '
+          '${analysis['experienceRequirements']}',
         );
         debugPrint('========================');
 
@@ -156,8 +186,8 @@ class _JobInputScreenState extends State<JobInputScreen> {
                   constraints: BoxConstraints(maxWidth: 760),
                   child: Text(
                     'Paste the job description below. ResumeWriter will analyse '
-                    'the role, identify the key requirements and compare them '
-                    'with your professional profile.',
+                    'the role and securely compare it with the professional '
+                    'profile stored in your Solid Pod.',
                     style: TextStyle(
                       color: _secondaryText,
                       fontSize: 19,
@@ -255,7 +285,9 @@ class _JobInputScreenState extends State<JobInputScreen> {
                                   size: 20,
                                 ),
                           label: Text(
-                            _isAnalysing ? 'Analysing Job...' : 'Analyse Job',
+                            _isAnalysing
+                                ? 'Reading Pod & Analysing...'
+                                : 'Analyse Job',
                           ),
                           style: FilledButton.styleFrom(
                             backgroundColor: _accent,
@@ -289,7 +321,8 @@ class _JobInputScreenState extends State<JobInputScreen> {
                     SizedBox(width: 10),
                     Expanded(
                       child: Text(
-                        'Your job description is used only for analysis and is not stored permanently.',
+                        'Your career profile is read directly from your '
+                        'Solid Pod only when you request an analysis.',
                         style: TextStyle(
                           color: _secondaryText,
                           fontSize: 14,

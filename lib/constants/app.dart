@@ -10,7 +10,7 @@ import 'package:solidui/solidui.dart'
 
 /// Application title displayed as the window title.
 
-const String appTitle = 'ResumeWriter - File Browser for Solid Pods';
+const String appTitle = 'ResumeWriter';
 
 // ── Solid app registration ───────────────────────────────────────────────────
 
